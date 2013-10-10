@@ -73,40 +73,51 @@ describe("Clase GameBoard", function(){
 
     it("add()", function(){
         var miboar = {
-            meter: function(){},
+            push: function(){},
         };
-        spyOn(miboar, "meter");
-        miGameBoard.add(miboar);
+        var obj = miboar;
+        spyOn(miboar, "push").andReturn(obj);
+        miGameBoard.add(obj);
         waits(100);
         runs(function(){        
-            expect(miGameBoard.add()).toHaveBeenCalled();
+            expect(miGameBoard.add(obj)).toEqual(obj);
+        });
+	});
+
+    it("resetRemoved()", function(){
+        spyOn(miGameBoard, "resetRemoved");
+        expect(miGameBoard.resetRemoved).toBeDefined();
+        miGameBoard.resetRemoved({},function(){});
+        waits(100);
+        runs(function(){
+            expect(miGameBoard.resetRemoved).toHaveBeenCalled();
         });
 	});
 /*
 	it("remove", function(){
-	    var miboar = {
-            sacar: funcion(){},
+	    var miboard = {
+            push: function(){},
         };
-        spyOn(miboard, "sacar");
-        miGameBoard.remove(miboard);
+        var obj = miboard;
+//        miGameBoard.removed = [];
+        spyOn(miboard, "push");
+        miGameBoard.remove(obj);
         waits(100);
         runs(function(){
-            expect(miGameBoard.remove()).toHaveBeenCalled();
+            expect(miGameBoard.remove(obj)).toHaveBeenCalled();
         });
 	});
-
-	it("resetRemoved", function(){
-
-	});
 */
+	
+/*
 	it("finalizeRemoved", function(){
 
 	});
-/*
+*/
 	it("iterate", function(){
 
 	});
-
+/*
 	it("detect", function(){
 
 	});
