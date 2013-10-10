@@ -93,16 +93,16 @@ describe("Clase GameBoard", function(){
         runs(function(){
             expect(miGameBoard.remove()).toHaveBeenCalled();
         });
-	});
+	});*/
 
 	it("resetRemoved", function(){
 
 	});
-*/
+/*
 	it("finalizeRemoved", function(){
 
 	});
-/*
+
 	it("iterate", function(){
 
 	});
