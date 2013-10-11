@@ -78,7 +78,7 @@ describe("Clase GameBoard", function(){
 	});
 
     // remove()
-	it("remove()", function(){
+	it("remove(), resetRemoved, finalizeRemoved", function(){
         var miGameBoard = new GameBoard();
 	    var obj1 = "nave1";
         var obj2 = "nave2";
@@ -99,36 +99,70 @@ describe("Clase GameBoard", function(){
 	// iterate
 	it("iterate", function(){
         var miGameBoard = new GameBoard;
-        var miobj = {
-            apply: function(){},
-        };
+        var mio1 = "nave";
 
-        var mifunc = "ship";
-        spyOn(miobj, "apply");
-        miGameBoard.iterate(mifunc);
+        miGameBoard.add(mio1);
+
+        spyOn(miGameBoard, "iterate");
+        miGameBoard.iterate("add", ctx);
         waits(100);
         runs(function(){
-            expect(miobj.apply).toHaveBeenCalled();
+            expect(miGameBoard.iterate).toHaveBeenCalled();
         });
 	});
 
-/*
+    // detect()
 	it("detect", function(){
-
+        var miGameBoard = new GameBoard();
+        var obj = "nave";
+        miGameBoard.add(obj);
+        var mifunc = {
+            call: function(){},
+        };
+        spyOn(mifunc, "call");
+        miGameBoard.detect(mifunc);
+        waits(100);
+        runs(function(){
+            expect(miGameBoard.objects[0]).toBeTruthy();
+        });
 	});
 
+    // step
 	it("step", function(){
-	
+        var miGameBoard = new GameBoard();
+        var obj = "nave";
+        var midt = 10;
+        miGameBoard.add(obj);
+        miGameBoard.step(midt);
+        waits(100);
+        runs(function(){
+            expect(miGameBoard.objects[0]).toEqual(undefined);
+        });
 	});
-
+/*
 	it("draw", function(){
 	
 	});
-
+*/
 	it("overlap", function(){
-
+        var miGameBoard = new GameBoard();
+        var mio1 = {
+                h: 1,
+                w: 1,
+                x: 4,
+                y: 4,
+        };
+        var mio2 = {
+                h: 4,
+                w: 4,
+                x: 2,
+                y: 2,
+        };
+        miGameBoard.add(mio1);
+        miGameBoard.add(mio2);
+        expect(miGameBoard.overlap(mio1, mio2)).toBeTruthy();
 	});
-
+/*
 	it("collide", function(){
 
 	});*/
