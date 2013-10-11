@@ -69,53 +69,47 @@ describe("Clase GameBoard", function(){
     	expect(ctx).toBeDefined();
     });
 
-    var miGameBoard = new GameBoard();
-
+    // add()
     it("add()", function(){
-        var miboar = {
-            push: function(){},
-        };
-        var obj = miboar;
-        spyOn(miboar, "push").andReturn(obj);
-        miGameBoard.add(obj);
-        waits(100);
-        runs(function(){        
-            expect(miGameBoard.add(obj)).toEqual(obj);
-        });
+        var miGameBoard = new GameBoard();
+        var obj = "nave";
+        miGameBoard.add(obj);    
+        expect(miGameBoard.add(obj)).toEqual("nave");
 	});
 
-    it("resetRemoved()", function(){
-        spyOn(miGameBoard, "resetRemoved");
-        expect(miGameBoard.resetRemoved).toBeDefined();
-        miGameBoard.resetRemoved({},function(){});
-        waits(100);
-        runs(function(){
-            expect(miGameBoard.resetRemoved).toHaveBeenCalled();
-        });
-	});
-/*
-	it("remove", function(){
-	    var miboard = {
-            push: function(){},
-        };
-        var obj = miboard;
-//        miGameBoard.removed = [];
-        spyOn(miboard, "push");
-        miGameBoard.remove(obj);
-        waits(100);
-        runs(function(){
-            expect(miGameBoard.remove(obj)).toHaveBeenCalled();
-        });
-	});
-*/
-	
-/*
-	it("finalizeRemoved", function(){
+    // remove()
+	it("remove()", function(){
+        var miGameBoard = new GameBoard();
+	    var obj1 = "nave1";
+        var obj2 = "nave2";
+        var obj3 = "nave3";
+        miGameBoard.add(obj1);
+        miGameBoard.add(obj2);
+        miGameBoard.add(obj3);
 
+        miGameBoard.resetRemoved();
+        miGameBoard.remove(obj2);
+        miGameBoard.finalizeRemoved();
+
+        expect(miGameBoard.objects[0]).toEqual("nave1");
+        expect(miGameBoard.objects[1]).toEqual("nave3");
+        expect(miGameBoard.objects[2]).toEqual(undefined);
 	});
-*/
+
+	// iterate
 	it("iterate", function(){
+        var miGameBoard = new GameBoard;
+        var miobj = {
+            apply: function(){},
+        };
 
+        var mifunc = "ship";
+        spyOn(miobj, "apply");
+        miGameBoard.iterate(mifunc);
+        waits(100);
+        runs(function(){
+            expect(miobj.apply).toHaveBeenCalled();
+        });
 	});
 /*
 	it("detect", function(){
