@@ -96,7 +96,22 @@ describe("Clase GameBoard", function(){
         expect(miGameBoard.objects[2]).toEqual(undefined);
 	});
 
+	// iterate
+	it("iterate", function(){
+        var miGameBoard = new GameBoard;
+        var miobj = {
+            apply: function(){},
+        };
 
+        var mifunc = "ship";
+        spyOn(miobj, "apply");
+        miGameBoard.iterate(mifunc);
+        waits(100);
+        runs(function(){
+            expect(miobj.apply).toHaveBeenCalled();
+        });
+	});
+/*
 	it("detect", function(){
 
 	});

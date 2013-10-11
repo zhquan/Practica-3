@@ -111,6 +111,7 @@ describe("Clase GameBoard", function(){
             expect(miobj.apply).toHaveBeenCalled();
         });
 	});
+
 /*
 	it("detect", function(){
 
