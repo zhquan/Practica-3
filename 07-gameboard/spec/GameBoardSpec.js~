@@ -99,15 +99,25 @@ describe("Clase GameBoard", function(){
 	// iterate
 	it("iterate", function(){
         var miGameBoard = new GameBoard;
-        var mio1 = "nave";
-
+        var mio1 = {
+            step: function(){},
+            draw: function(){},
+        };
+        var mio2 = {
+            step: function(){},
+            draw: function(){},
+        };
+        spyOn(mio1, "step");
+        spyOn(mio2, "step");
         miGameBoard.add(mio1);
+        miGameBoard.add(mio2);
 
-        spyOn(miGameBoard, "iterate");
-        miGameBoard.iterate("add", ctx);
+        miGameBoard.iterate("step", 1.0);
+
         waits(100);
         runs(function(){
-            expect(miGameBoard.iterate).toHaveBeenCalled();
+            expect(mio1.step).toHaveBeenCalled();
+            expect(mio2.step).toHaveBeenCalled();
         });
 	});
 
@@ -127,43 +137,41 @@ describe("Clase GameBoard", function(){
         });
 	});
 
-    // step
-	it("step", function(){
-        var miGameBoard = new GameBoard();
-        var obj = "nave";
-        var midt = 10;
-        miGameBoard.add(obj);
-        miGameBoard.step('step',midt);
-        waits(100);
-        runs(function(){
-            expect(miGameBoard.objects[0]).toEqual(undefined);
-        });
-	});
-/*
-	it("draw", function(){
-	
-	});
-*/
-	it("overlap", function(){
+    // step draw
+	it("step(), draw()", function(){
         var miGameBoard = new GameBoard();
         var mio1 = {
-                h: 1,
-                w: 1,
-                x: 4,
-                y: 4,
+            step: function(){},
+            draw: function(){},
         };
-        var mio2 = {
-                h: 4,
-                w: 4,
-                x: 2,
-                y: 2,
-        };
+        spyOn(mio1, "step");
+        spyOn(mio1, "draw");
+        miGameBoard.add(mio1);
+        miGameBoard.step(1.0);
+        miGameBoard.draw(1.0);
+        waits(100);
+        runs(function(){
+            expect(mio1.step).toHaveBeenCalled();
+            expect(mio1.draw).toHaveBeenCalled();
+        });
+	});
+
+    // overlap
+	it("overlap", function(){
+        var miGameBoard = new GameBoard();
+        var mio1 = {h: 1, w: 1, x: 4, y: 4};
+        var mio2 = {h: 4, w: 4, x: 2, y: 2};
         miGameBoard.add(mio1);
         miGameBoard.add(mio2);
         expect(miGameBoard.overlap(mio1, mio2)).toBeTruthy();
 	});
-/*
-	it("collide", function(){
 
-	});*/
+	it("collide", function(){
+        var miGameBoard = new GameBoard();
+        var mio1 = {h: 1, w: 1, x: 4, y: 4};
+        var mio2 = {h: 4, w: 4, x: 2, y: 2};
+        miGameBoard.add(mio1);
+        miGameBoard.add(mio2);
+        expect(miGameBoard.collide(mio1, mio2)).toBeFalsy();
+	});
 });
