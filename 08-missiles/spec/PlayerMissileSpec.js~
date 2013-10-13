@@ -38,13 +38,16 @@ describe("Clase PlayerMissile", function(){
     
     	ctx = canvas.getContext('2d');
     	expect(ctx).toBeDefined();
+    
+        var sprites = {
+            missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 }
+        };
+        SpriteSheet.load (sprites,function(){}); // cargamos el sprites con callback a cero
     });
 
     // draw
     it("draw", function(){
-        var sprites = {
-            missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 }
-        };        
+        
 	    spyOn(PlayerMissile, "draw");
 
 	    Game = {width: 320, height: 480};
