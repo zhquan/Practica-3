@@ -42,21 +42,29 @@ describe("Clase PlayerMissile", function(){
 
     // draw
     it("draw", function(){
-        var sprites = {
-            missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 }
-        };        
-	    spyOn(PlayerMissile, "draw");
 
-	    Game = {width: 320, height: 480};
+        spyOn(SpriteSheet, "draw");
+        SpriteSheet.map = {
+            missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 },
+        };
+        var miMissile = new PlayerMissile(4, 8);
+        miMissile.draw(ctx);	    
 
-	    var miPlayerMissile = new PlayerMissile();
+ 	    expect(SpriteSheet.draw).toHaveBeenCalled();
+      	expect(SpriteSheet.draw.calls[0].args[1]).toEqual("missile");
+        expect(SpriteSheet.draw.calls[0].args[2]).toEqual(miMissile.x);
+        expect(SpriteSheet.draw.calls[0].args[3]).toEqual(miMissile.y);
+    });
 
-	    miPlayerMissile.prototype.draw();
+    // step
+    it("step", function(){
+        var miGameBoard = new GameBoard();
+        var miMissile = new PlayerMissile(4, 8);
+        miGameBoard.add(miMissile);
+        spyOn(miGameBoard, "remove");
+        miMissile.step(1);	    
 
-	    expect(miPlayerMissile.draw).toHaveBeenCalled();
-     	expect(miPlayerMissile.draw.calls[0].args[1]).toEqual("ship");
-     	expect(miPlayerMissile.draw.calls[0].args[2]).toEqual(miPlayerMissile.x);
-     	expect(miPlayerMissile.draw.calls[0].args[3]).toEqual(miPlayerMissile.y);
-     	expect(miPlayerMissile.draw.calls[0].args[4]).toEqual(0);
+ 	    expect(miGameBoard.remove).toHaveBeenCalled();
+      	
     });
 });
