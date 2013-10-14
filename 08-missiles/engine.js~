@@ -131,7 +131,7 @@ var SpriteSheet = new function() {
 // http://www.google.com/fonts
 
 var TitleScreen = function TitleScreen(title,subtitle,callback) {
-    var up = false;
+    var up = true;
 
     // En cada paso, comprobamos si la tecla ha pasado de no pulsada a
     // pulsada. Si comienza el juego con la tecla pulsada, hay que

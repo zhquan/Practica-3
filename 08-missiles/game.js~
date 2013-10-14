@@ -119,7 +119,7 @@ var PlayerShip = function() {
 	    }
 
 	    this.reload-=dt;
-	    if(!Game.keys['fire'] && this.reload < 0) {// Dispara cuando sueltas
+	    if(!Game.keys['fire'] && this.reload < 0) {
 	        // Esta pulsada la tecla de disparo y ya ha pasado el tiempo reload
 	        Game.keys['fire'] = true;
 	        this.reload = this.reloadTime;

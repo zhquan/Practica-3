@@ -205,7 +205,7 @@ var GameBoard = function() {
 
     // Iterador que aplica el método funcName a todos los
     // objetos de objects
-    this.iterate = function(funcName) {
+/*    this.iterate = function(funcName) {
 	    // Convertimos en un array args (1..)
 	    var args = Array.prototype.slice.call(arguments,1);
 
@@ -214,15 +214,22 @@ var GameBoard = function() {
 	        obj[funcName].apply(obj,args)
 	    }
     };
+*/
+    this.iterate = function(funcName) {
+        _.map(this.objects, function(funcName){return this.objects*funcName});
+    };
 
     // Devuelve el primer objeto de objects para el que func es true
-    this.detect = function(func) {
+/*    this.detect = function(func) {
 	    for(var i = 0,val=null, len=this.objects.length; i < len; i++) {
 	        if(func.call(this.objects[i])) return this.objects[i];
 	    }
 	    return false;
     };
-
+*/
+    this.detect = function(funcName) {
+        _.map(this.objects, function(funcName){return this.objects});
+    };
     // Cuando Game.loop() llame a step(), hay que llamar al método
     // step() de todos los objetos contenidos en el tablero.  Antes se
     // inicializa la lista de objetos pendientes de borrar, y después
@@ -242,7 +249,7 @@ var GameBoard = function() {
     // Comprobar si hay intersección entre los rectángulos que
     // circunscriben a los objetos o1 y o2
     this.overlap = function(o1,o2) {
-	// return !((o1 encima de o2)    || (o1 debajo de o2)   ||
+	    // return !((o1 encima de o2)    || (o1 debajo de o2)   ||
         //          (o1 a la izda de o2) || (o1 a la dcha de o2)
 	    return !((o1.y+o1.h-1<o2.y) || (o1.y>o2.y+o2.h-1) ||
 		 (o1.x+o1.w-1<o2.x) || (o1.x>o2.x+o2.w-1));
